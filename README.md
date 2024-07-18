@@ -30,7 +30,7 @@ To get started follow this guide:
 
 In your terminal clone repo to your local machine using git clone:
 
-```
+```bash
 git clone https://github.com/Sahil0420/woods-indica.git
 ```
 
@@ -42,13 +42,13 @@ $ cd woods-indica && yarn or npm install
 
 To Run Project:-
 
-```
+```sh
 $ yarn dev or npm run dev 
 ```
 
 To open all project files from terminal using VSCode just tpye and enter:
 
-```
+```sh
 $ code .
 ```
 
