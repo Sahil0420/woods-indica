@@ -37,7 +37,7 @@ git clone https://github.com/Sahil0420/woods-indica.git
 Move to your newly cloned repo by entering the following in your terminal:
 
 ```sh
-$cd woods-indica && yarn or npm install
+$ cd woods-indica && yarn or npm install
 ```
 
 To Run Project:-
