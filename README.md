@@ -31,7 +31,7 @@ To get started follow this guide:
 In your terminal clone repo to your local machine using git clone:
 
 ```
-git clone https://github.com/kartikpavan/Fullstack-Ecommerce.git
+git clone https://github.com/Sahil0420/woods-indica.git
 ```
 
 Move to your newly cloned repo by entering the following in your terminal:
