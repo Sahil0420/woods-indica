@@ -1,21 +1,14 @@
-# Fullstack-Ecommerce
+# woods indica
 
-## :moneybag: Eshop.com  :moneybag:
-
-eShop.com is an e-Commerce website that enables users to shop through variety of products(electronic / household / fashion) , add a product to their cart, and checkout. A user can either register their own username and password or Sign in With Google, or they can simply use the "Guest Login" button to navigate the website without registering.
+woods indica is an e-Commerce website that enables users to shop through variety of products , add a product to their cart, and checkout. A user can either register their own username and password or Sign in With Google, or they can simply use the "Guest Login" button to avigate the website without registering.
 
 ## Summary
-
-- :star: [Website Link](#website-link)
 - :star: [Getting Started](#getting-started)
 - :star: [Prerequisites](#prerequisites)
 - :star: [Installing](#installing)
 - :star: [Built With](#built-with)
 - :star: [Software Developer](#software-developer)
 
-## LIVE-Website-Link
-
-[EShop.com](https://eshop-firebase.vercel.app/)
 
 ## Getting-Started
 
