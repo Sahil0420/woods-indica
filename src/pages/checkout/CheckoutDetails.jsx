@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { saveShippingAddress, saveBillingAddress } from "../../redux/slice/checkoutSlice";
 
 const defaultValues = {
-	name: "",
+	productName: "",
 	line1: "",
 	line2: "",
 	city: "",

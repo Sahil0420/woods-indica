@@ -4,7 +4,12 @@ import Loader from "../loader/Loader";
 import { useNavigate, useParams } from "react-router-dom";
 import { categories } from "../../utils/adminProductCategories";
 import { defaultValues } from "../../utils/adminAddProductDefaultValues";
-import { ref, uploadBytesResumable, getDownloadURL, deleteObject } from "firebase/storage";
+import {
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+  deleteObject,
+} from "firebase/storage";
 import { collection, addDoc, Timestamp, setDoc, doc } from "firebase/firestore";
 import { storage, db } from "../../firebase/config";
 import { useSelector } from "react-redux";
@@ -39,7 +44,8 @@ const AddProducts = () => {
     uploadTask.on(
       "state_changed",
       (snapshot) => {
-        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        const progress =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
         setUploadProgress(progress);
       },
       (error) => {
@@ -48,7 +54,7 @@ const AddProducts = () => {
       () => {
         // Handle successful uploads on complete
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-          setProduct({ ...product, imageURL: downloadURL });
+          setProduct({ ...product, imgUrl: downloadURL });
           toast.success("File Uploaded Successfully");
         });
       }
@@ -60,11 +66,10 @@ const AddProducts = () => {
     setIsLoading(true);
     try {
       const docRef = await addDoc(collection(db, "products"), {
-        name: product.name,
-        imageURL: product.imageURL,
+        productName: product.name,
+        imgUrl: product.imgUrl,
         price: Number(product.price),
         category: product.category,
-        brand: product.brand,
         description: product.description,
         createdAt: Timestamp.now().toDate(),
       });
@@ -84,18 +89,17 @@ const AddProducts = () => {
     e.preventDefault();
     setIsLoading(true);
     // Check if the image is updated
-    if (product.imageURL !== productEdit.imageURL) {
+    if (product.imgUrl !== productEdit.imgUrl) {
       // deleting image from database storage
-      const storageRef = ref(storage, productEdit.imageURL);
+      const storageRef = ref(storage, productEdit.imgUrl);
       await deleteObject(storageRef);
     }
     try {
       await setDoc(doc(db, "products", paramsId), {
-        name: product.name,
-        imageURL: product.imageURL,
+        productName: product.name,
+        imgUrl: product.imgUrl,
         price: Number(product.price),
         category: product.category,
-        brand: product.brand,
         description: product.description,
         // Preserving created at
         createdAt: productEdit.createdAt,
@@ -115,10 +119,9 @@ const AddProducts = () => {
 
   //! Disable button until everything added to input fields
   const AllFieldsRequired =
-    Boolean(product.brand) &&
     Boolean(product.category) &&
     Boolean(product.description) &&
-    Boolean(product.imageURL) &&
+    Boolean(product.imgUrl) &&
     Boolean(product.name) &&
     Boolean(product.name);
 
@@ -130,9 +133,14 @@ const AddProducts = () => {
         <h1 className="text-xl md:text-3xl font-semibold pb-3">
           {detectForm(paramsId, "Add New Product", "Edit Product")}
         </h1>
-        <form className="form-control" onSubmit={detectForm(paramsId, addProduct, editProduct)}>
+        <form
+          className="form-control"
+          onSubmit={detectForm(paramsId, addProduct, editProduct)}
+        >
           <div className="py-2">
-            <label className="label-text font-bold mb-2 block text-lg">Product Name:</label>
+            <label className="label-text font-bold mb-2 block text-lg">
+              Product Name:
+            </label>
             <input
               className="input input-bordered max-w-lg w-full border-2"
               type="text"
@@ -145,7 +153,9 @@ const AddProducts = () => {
           </div>
 
           <div className="py-2">
-            <label className="label-text font-bold mb-2 block text-lg">Product Price: </label>
+            <label className="label-text font-bold mb-2 block text-lg">
+              Product Price:{" "}
+            </label>
             <input
               className="input input-bordered max-w-lg w-full border-2"
               type="number"
@@ -157,7 +167,9 @@ const AddProducts = () => {
             />
           </div>
           <div className="py-2">
-            <label className="label-text font-bold mb-2 block text-lg">Product Category:</label>
+            <label className="label-text font-bold mb-2 block text-lg">
+              Product Category:
+            </label>
             <select
               className="select select-bordered w-full max-w-lg"
               required
@@ -178,19 +190,9 @@ const AddProducts = () => {
             </select>
           </div>
           <div className="py-2">
-            <label className="label-text font-bold mb-2 block text-lg">Product Brand: </label>
-            <input
-              className="input input-bordered max-w-lg w-full border-2"
-              type="text"
-              placeholder="Product Brand"
-              required
-              name="brand"
-              value={product.brand}
-              onChange={handleInputChange}
-            />
-          </div>
-          <div className="py-2">
-            <label className="label-text font-bold mb-2 block text-lg">Product Description: </label>
+            <label className="label-text font-bold mb-2 block text-lg">
+              Product Description:{" "}
+            </label>
             <textarea
               className="textarea textarea-bordered h-32 max-w-lg w-full"
               type="text"
@@ -202,7 +204,9 @@ const AddProducts = () => {
             ></textarea>
           </div>
           <div>
-            <label className="label-text font-bold mb-2 block text-lg">Product Image: </label>
+            <label className="label-text font-bold mb-2 block text-lg">
+              Product Image:{" "}
+            </label>
             <div className="border-2 rounded-sm  max-w-xl w-full px-4 pb-2">
               <div>
                 <progress
@@ -219,11 +223,11 @@ const AddProducts = () => {
                 name="image"
                 onChange={handleImageChange}
               />
-              {product.imageURL === "" ? null : (
+              {product.imgUrl === "" ? null : (
                 <input
                   className="input input-sm input-bordered max-w-lg w-full my-2"
                   type="text"
-                  value={product.imageURL}
+                  value={product.imgUrl}
                   required
                   placeholder="Image URL"
                   disabled

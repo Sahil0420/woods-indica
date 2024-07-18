@@ -71,7 +71,7 @@ const Cart = () => {
 									{/* Body */}
 									<tbody>
 										{cartItems.map((item, index) => {
-											const { imageURL, name, price, qty, id } = item;
+											const { imgUrl, productName, price, qty, id } = item;
 											return (
 												<tr key={index}>
 													<td className="flex gap-x-2 ">
@@ -81,10 +81,10 @@ const Cart = () => {
 														>
 															<LazyLoadImage
 																src={
-																	imageURL ||
+																	imgUrl ||
 																	`https://storage.googleapis.com/proudcity/mebanenc/uploads/2021/03/placeholder-image.png`
 																}
-																alt={name}
+																alt={productName}
 																className="w-24 object-fill"
 																placeholderSrc="https://www.slntechnologies.com/wp-content/uploads/2017/08/ef3-placeholder-image.jpg"
 																effect="blur"
@@ -94,7 +94,7 @@ const Cart = () => {
 														<div>
 															<Link to={`/product-details/${id}`}>
 																<h1 className=" md:text-lg">
-																	{name}
+																	{productName}
 																</h1>
 															</Link>
 

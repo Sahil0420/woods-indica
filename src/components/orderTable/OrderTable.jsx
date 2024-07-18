@@ -16,14 +16,14 @@ const OrderTable = ({ user, order }) => {
         </thead>
         <tbody>
           {order.cartItems.map((product, index) => {
-            const { id: productId, name, price, imageURL, qty } = product;
+            const { id: productId, name, price, imgUrl, qty } = product;
             return (
               <tr key={index}>
                 <td>
                   <Link to={`/product-details/${productId}`}>
                     <LazyLoadImage
                       src={
-                        imageURL ||
+                        imgUrl ||
                         `https://storage.googleapis.com/proudcity/mebanenc/uploads/2021/03/placeholder-image.png`
                       }
                       alt={name}

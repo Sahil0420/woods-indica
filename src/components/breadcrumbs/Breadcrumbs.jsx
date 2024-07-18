@@ -5,7 +5,7 @@ const Breadcrumbs = ({ type, checkout, stripe }) => {
 	const activeLink = ({ isActive }) => (isActive ? "text-secondary-content " : null);
 
 	return (
-		<section className="h-20 md:h-36 w-full bg-primary-content flex items-center">
+		<section className="h-20 md:h-36 w-full bg-[#cc9b67] flex items-center">
 			<div className="w-full mx-auto px-2 lg:w-9/12 md:px-6 ">
 				<Link to="/" className="text-xl md:text-3xl font-bold ">
 					Home /
@@ -33,5 +33,6 @@ const Breadcrumbs = ({ type, checkout, stripe }) => {
 		</section>
 	);
 };
+
 
 export default Breadcrumbs;

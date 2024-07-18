@@ -1,27 +1,18 @@
-import React, { useEffect, useState } from "react";
-import {
-  PaymentElement,
-  useStripe,
-  useElements,
-} from "@stripe/react-stripe-js";
+import React, { useState, useEffect } from "react";
 import CheckoutSummary from "../checkoutSummary/CheckoutSummary";
-import Breadcrumbs from "../breadcrumbs/Breadcrumbs";
 import Header from "../header/Header";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 // firebase
 import { collection, addDoc, Timestamp } from "firebase/firestore";
 import { db } from "../../firebase/config";
-//redux
+// redux
 import { useSelector, useDispatch } from "react-redux";
 import { clearCart } from "../../redux/slice/cartSlice";
 import Loader from "../loader/Loader";
+import Razorpay from "razorpay";
 
 const CheckoutForm = () => {
-  const stripe = useStripe();
-  const elements = useElements();
-
-  const [message, setMessage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
@@ -30,7 +21,7 @@ const CheckoutForm = () => {
   const { cartItems, totalAmount } = useSelector((store) => store.cart);
   const { shippingAddress } = useSelector((store) => store.checkout);
 
-  const saveOrder = () => {
+  const saveOrder = async () => {
     const date = new Date().toDateString();
     const time = new Date().toLocaleTimeString();
     const orderDetails = {
@@ -45,88 +36,80 @@ const CheckoutForm = () => {
       createdAt: Timestamp.now().toDate(),
     };
     try {
-      addDoc(collection(db, "orders"), orderDetails);
+      await addDoc(collection(db, "orders"), orderDetails);
       dispatch(clearCart());
     } catch (error) {
       toast.error(error.message);
     }
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setMessage(null);
-    if (!stripe || !elements) {
-      return;
-    }
+  const handlePayment = async () => {
     setIsLoading(true);
-    const confirmPayment = await stripe
-      .confirmPayment({
-        elements,
-        confirmParams: {
-          // Make sure to change this to your payment completion page
-          return_url: "http://localhost:5173/checkout-success",
+
+    const options = {
+      key: "rzp_test_ABsA8G5FoiHFA6", // Replace with your Razorpay Key ID
+      amount: totalAmount * 100, // Amount in paise
+      currency: "INR",
+      name: "Your Company Name",
+      description: "Purchase Description",
+      handler: function (response) {
+        setIsLoading(false);
+        toast.success("Payment Successful");
+        saveOrder();
+        navigate("/checkout-success", { replace: true });
+      },
+      prefill: {
+        email: email,
+      },
+      theme: {
+        color: "#3399cc",
+      },
+      modal: {
+        ondismiss: function () {
+          setIsLoading(false);
+          toast.error("Payment cancelled or failed");
         },
-        redirect: "if_required",
-      })
-      .then((res) => {
-        if (res.error) {
-          setMessage(res.error.message);
-          toast.error(res.error.message);
-          return;
-        }
-        if (res.paymentIntent) {
-          if (res.paymentIntent.status === "succeeded") {
-            setIsLoading(false);
-            toast.success("Payment Successful");
-            saveOrder();
-            navigate("/checkout-success", { replace: true });
-          }
-        }
-      });
-    setIsLoading(false);
+      },
+    };
+
+    const rzp = new window.Razorpay(options);
+    rzp.open();
   };
 
   useEffect(() => {
-    if (!stripe) {
-      return;
-    }
-    const clientSecret = new URLSearchParams(window.location.search).get(
-      "payment_intent_client_secret"
-    );
-    if (!clientSecret) {
-      return;
-    }
-  }, [stripe]);
+    const script = document.createElement("script");
+    script.src = "https://checkout.razorpay.com/v1/checkout.js";
+    script.async = true;
+    script.onload = () => {
+      console.log("Razorpay script loaded");
+    };
+    script.onerror = () => {
+      toast.error("Failed to load Razorpay script");
+    };
+    document.body.appendChild(script);
+
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
 
   return (
     <>
-      <Header text="Stripe Payment Gateway" />
+      <Header text="Razorpay Payment Gateway" />
       <section className="w-full mx-auto p-4 md:p-10 md:w-9/12 md:px-6 flex flex-col h-full">
         <div className="flex flex-col-reverse md:flex-row gap-4 justify-evenly">
           <div className="w-full md:w-2/5 h-max p-4 bg-base-100 rounded-md shadow-xl">
             <CheckoutSummary />
           </div>
           <div className="rounded-md shadow-xl pt-4 pb-8 px-10">
-            <h1 className="text-3xl font-light mb-2">Stripe Checkout</h1>
-            <form className="md:w-[30rem]" onSubmit={handleSubmit}>
-              <PaymentElement id="payment-element" />
-              <button
-                disabled={isLoading || !stripe || !elements}
-                id="submit"
-                className="btn bg-blue-600"
-              >
-                <span id="button-text">
-                  {isLoading ? (
-                    // <div className="spinner" id="spinner"></div>
-                    <Loader />
-                  ) : (
-                    "Pay now"
-                  )}
-                </span>
-              </button>
-              {/* Show any error or success messages */}
-              {message && <div id="payment-message">{message}</div>}
-            </form>
+            <h1 className="text-3xl font-bold mb-2">Razorpay Checkout</h1>
+            <button
+              onClick={handlePayment}
+              disabled={isLoading}
+              className={`btn ${isLoading ? "bg-gray-400" : "bg-blue-600"}`}
+            >
+              {isLoading ? <Loader /> : "Pay now"}
+            </button>
           </div>
         </div>
       </section>

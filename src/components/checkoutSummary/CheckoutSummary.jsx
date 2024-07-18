@@ -20,14 +20,14 @@ const CheckoutSummary = () => {
                </p>
             </div>
             {cartItems.map((item) => {
-               const { id, name, price, qty } = item;
+               const { id, productName, price, qty } = item;
                return (
                   <section
                      className="border-2 border-secondary-content rounded-md my-2 p-2"
                      key={id}
                   >
                      <h1 className="text-lg md:text-2xl text-primary">
-                        {name}
+                        {productName}
                      </h1>
                      <p>Quantity: {qty}</p>
                      <p>Unit Price : {formatPrice(price)}</p>

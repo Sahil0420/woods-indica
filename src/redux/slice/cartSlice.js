@@ -17,12 +17,12 @@ const cartSlice = createSlice({
          // item Already exists in the cart
          if (itemIndex >= 0) {
             state.cartItems[itemIndex].qty += 1;
-            toast.info(`${action.payload.name} quantity increased `);
+            toast.info(`${action.payload.productName} quantity increased `);
          } else {
             // item does not exist in the cart
             const tempProduct = { ...action.payload, qty: 1 };
             state.cartItems.push(tempProduct);
-            toast.info(`${action.payload.name} Added to cart`);
+            toast.info(`${action.payload.productName} Added to cart`);
          }
          // Add item to local Storaeg
          localStorage.setItem("cart", JSON.stringify(state.cartItems));
@@ -32,12 +32,12 @@ const cartSlice = createSlice({
          // item has more than 1 qty present
          if (state.cartItems[itemIndex].qty > 1) {
             state.cartItems[itemIndex].qty -= 1;
-            toast.error(`${action.payload.name} quantity Decreased `);
+            toast.error(`${action.payload.productName} quantity Decreased `);
             // item has only 1 qty
          } else if (state.cartItems[itemIndex].qty === 1) {
             const newCartItems = state.cartItems.filter((item) => item.id !== action.payload.id);
             state.cartItems = newCartItems;
-            toast.error(`${action.payload.name} removed from Cart`);
+            toast.error(`${action.payload.productName} removed from Cart`);
          }
          // new Cart item array after removing items
          // Add item to local Storaeg
@@ -47,7 +47,7 @@ const cartSlice = createSlice({
          const newCartItems = state.cartItems.filter((item) => item.id !== action.payload.id);
          state.cartItems = newCartItems;
          localStorage.setItem("cart", JSON.stringify(state.cartItems));
-         toast.error(`${action.payload.name} removed from Cart`);
+         toast.error(`${action.payload.productName} removed from Cart`);
       },
       clearCart: (state) => {
          state.cartItems = [];

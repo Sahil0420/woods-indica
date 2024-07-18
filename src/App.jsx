@@ -1,6 +1,9 @@
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import { AdminRoute, Modal, Navbar, ProductDetails, ProtectedRoute } from "./components";
+import { initializeAuth } from "./redux/slice/authSlice"; // Adjust the import path as needed
 import {
   Admin,
   AllProducts,
@@ -18,6 +21,12 @@ import {
 } from "./pages";
 
 const App = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(initializeAuth());
+  }, [dispatch]);
+
   return (
     <>
       <ToastContainer position="bottom-right" autoClose={4000} closeOnClick />
@@ -58,7 +67,6 @@ const App = () => {
             </AdminRoute>
           }
         />
-
         {/* 404 routes */}
         <Route path="/*" element={<NotFound />} />
       </Routes>

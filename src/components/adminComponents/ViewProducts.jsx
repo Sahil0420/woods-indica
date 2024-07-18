@@ -19,7 +19,6 @@ const ViewProducts = () => {
   const [search, setSearch] = useState("");
   const dispatch = useDispatch();
 
-  //! Fetching Products from collection using Custom Hook
   const { data, isLoading } = useFetchCollection("products");
   const { filteredProducts } = useSelector((store) => store.filter);
   const { products } = useSelector((store) => store.product);
@@ -34,12 +33,12 @@ const ViewProducts = () => {
   }, [dispatch, data, search]);
 
   //! Delete single product
-  const deleteSingleProduct = async (id, imageURL) => {
+  const deleteSingleProduct = async (id, imgUrl) => {
     try {
       // deleting a document from product collection
       await deleteDoc(doc(db, "products", id));
       // deleting image from database storage
-      const storageRef = ref(storage, imageURL);
+      const storageRef = ref(storage, imgUrl);
       await deleteObject(storageRef);
       toast.info("Product deleted successfully");
     } catch (error) {
@@ -79,7 +78,7 @@ const ViewProducts = () => {
               {/* TABLE BODY */}
               <tbody>
                 {filteredProducts?.map((p, index) => {
-                  const { id, name, category, price, imageURL } = p;
+                  const { id, productName, category, price, imgUrl } = p;
                   return (
                     <tr key={id} className="hover">
                       <td>{index + 1}</td>
@@ -87,17 +86,17 @@ const ViewProducts = () => {
                         <div>
                           <LazyLoadImage
                             src={
-                              imageURL ||
+                              imgUrl ||
                               `https://storage.googleapis.com/proudcity/mebanenc/uploads/2021/03/placeholder-image.png`
                             }
-                            alt={name}
+                            alt={productName}
                             className="w-10 sm:w-16 object-fill"
                             placeholderSrc="https://www.slntechnologies.com/wp-content/uploads/2017/08/ef3-placeholder-image.jpg"
                             effect="blur"
                           />
                         </div>
                       </td>
-                      <td className="text-lg font-light w-[200px] ">{name}</td>
+                      <td className="text-lg font-light w-[200px] ">{productName}</td>
                       <td className="text-lg font-light">{category}</td>
                       <td className="text-lg font-light">{formatPrice(price)}</td>
                       <td>
@@ -111,7 +110,7 @@ const ViewProducts = () => {
                               color="red"
                               className="cursor-pointer"
                               onClick={() => {
-                                deleteSingleProduct(id, imageURL);
+                                deleteSingleProduct(id, imgUrl);
                               }}
                             />
                           </label>

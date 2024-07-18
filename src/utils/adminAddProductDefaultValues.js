@@ -1,6 +1,6 @@
 export const defaultValues = {
-	name: "",
-	imageURL: "",
+	productName: "",
+	imgUrl: "",
 	price: 0,
 	category: "",
 	brand: "",

@@ -61,11 +61,11 @@ const Review = () => {
 						<div className="">
 							<div className="flex flex-col gap-5">
 								<h1 className="font-light text-primary text-xl">
-									{filteredProduct.name}
+									{filteredProduct.productName}
 								</h1>
 								<div className="flex gap-4 items-center">
 									<LazyLoadImage
-										src={filteredProduct.imageURL}
+										src={filteredProduct.imgUrl}
 										alt={"image"}
 										className="w-10 sm:w-32 object-fill"
 										placeholderSrc="https://www.slntechnologies.com/wp-content/uploads/2017/08/ef3-placeholder-image.jpg"

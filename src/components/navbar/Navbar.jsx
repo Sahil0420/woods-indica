@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { removeActiveUser, setActiveUser } from "../../redux/slice/authSlice";
 import { calculateSubtotal, calculateTotalQuantity } from "../../redux/slice/cartSlice";
 import { formatPrice } from "../../utils/formatPrice";
+import logo from '../../assets/drawing.svg'
 
 const Navbar = () => {
   const { isUserLoggedIn, userName } = useSelector((store) => store.auth);
@@ -62,11 +63,12 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="h-[8vh] bg-neutral shadow-xl ">
+      <nav className="h-[8vh] bg-[#335139] shadow-xl ">
         <div className="navbar w-full md:w-9/12 mx-auto flex items-center justify-between">
           <section className="md:gap-4">
             <Link to="/" className="btn btn-ghost ">
-              <h1 className="logo text-white text-lg md:text-3xl ">E-Shop.com</h1>
+              <img src={logo} alt="" className="object-cover h-24 w-20"/>
+              <h1 className="logo text-white text-lg md:text-3xl ">WoodsIndica</h1>
             </Link>
           </section>
           <div>
@@ -180,8 +182,7 @@ const Navbar = () => {
         </div>
       </nav>
       <AdminOnlyLink>
-        <div className="min-w-screen h-10  py-1 bg-red-200 text-red-700 font-bold text-center cursor-pointer">
-          <span>ADMIN</span>
+        <div className="min-w-screen h-20  py-1 bg-[#335139] font-bold text-center cursor-pointer">
           <Link to="/admin/home" className="btn btn-primary btn-sm mx-4">
             VIEW DASHBOARD
           </Link>

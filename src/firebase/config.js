@@ -4,12 +4,12 @@ import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 
 export const firebaseConfig = {
-   apiKey: import.meta.env.VITE_API_KEY,
-   authDomain: import.meta.env.VITE_AUTH_DOMAIN,
-   projectId: import.meta.env.VITE_PROJECT_ID,
-   storageBucket: import.meta.env.VITE_STORAGE_BUCKET,
-   messagingSenderId: import.meta.env.VITE_MESSAGING_SENDER_ID,
-   appId: import.meta.env.VITE_APP_ID,
+   apiKey: "AIzaSyC54Hz8PKYBaJnY_xKIsIUHIvbqGBGhnu8",
+   authDomain: "woodsindica-2a9db.firebaseapp.com",
+   projectId: "woodsindica-2a9db",
+   storageBucket: "woodsindica-2a9db.appspot.com",
+   messagingSenderId: "128387770060",
+   appId: "1:128387770060:web:8ec20988b4987efab5c469",
 };
 
 // Initialize Firebase

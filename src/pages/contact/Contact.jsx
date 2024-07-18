@@ -50,8 +50,8 @@ const Contact = () => {
                <div>
                   <div className="flex items-center gap-2 my-2 md:text-xl">
                      <AiOutlineMail />
-                     <a href="mailto: Support@eshop.com?subject=Feedback&body=message">
-                        Support@eshop.com
+                     <a href="mailto: sahilchandel4200@gmail.com?subject=Feedback&body=message">
+                        Support@woodsindica.com
                      </a>
                   </div>
                   <div className="flex items-center gap-2  my-2 md:text-xl">
@@ -61,11 +61,11 @@ const Contact = () => {
                   <div className="flex items-center gap-2 md:text-xl  my-2">
                      <AiOutlineTwitter />
                      <a
-                        href="https://twitter.com/kartik_im"
+                        href=""
                         rel="noreferrer"
                         target="_blank"
                      >
-                        @kartik_im
+                        @sikander
                      </a>
                   </div>
                </div>

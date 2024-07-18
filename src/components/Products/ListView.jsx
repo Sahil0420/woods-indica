@@ -26,18 +26,17 @@ const ListView = ({ products }) => {
 					<div key={product.id} className="mx-auto ">
 						<div className="flex flex-col xl:flex-row gap-x-5 relative shadow-md hover:scale-105 duration-300 p-2 items-center">
 							<LazyLoadImage
-								src={product.imageURL}
-								alt={product.name}
+								src={product.imgUrl}
+								alt={product.productName}
 								className="block w-60 h-60 object-contain rounded-md"
 								placeholderSrc="https://www.slntechnologies.com/wp-content/uploads/2017/08/ef3-placeholder-image.jpg"
 								effect="blur"
 							/>
 							<div className=" absolute top-0 right-0">
-								<span className="badge ">Free Delivery</span>
+								<span className="badge bg-[#335139] px-3 py-3">Free Delivery</span>
 							</div>
 							<div className="flex-1">
-								<h1 className="font-semibold">{product.brand}</h1>
-								<h1 className="font-semibold pb-2">{product.name}</h1>
+								<h1 className="font-semibold pb-2">{product.productName}</h1>
 								<p className="py-2 text-xl font-semibold">
 									{formatPrice(product.price)}
 								</p>
