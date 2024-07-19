@@ -1,72 +1,26 @@
+import React from "react";
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
-const tags = ["Timber", "Oils", "Furniture"];
-import heroImage from "../../assets/undraw_home.svg";
 
-let currentIndex = 0;
 const Hero = () => {
-  const [tagName, setTagName] = useState("");
-  function updateCountdown() {
-    const currentItem = tags[currentIndex];
-    setTagName(currentItem);
-    currentIndex = (currentIndex + 1) % tags.length;
-    setTimeout(updateCountdown, 2000);
-  }
-
-  useEffect(() => {
-    updateCountdown();
-  }, []);
+  const year = new Date().getFullYear();
 
   return (
-    <>
-      <main
-        className="bg-base-100 w-full md:w-9/12 min-h-[92vh] mx-auto
-          flex flex-col items-start justify-center "
-      >
-        <div className="container px-6 py-16 mx-auto">
-          <div className="items-center lg:flex">
-            <div className="w-full lg:w-1/2">
-              <div className="lg:max-w-lg">
-                <p className="text-4xl font-bold text-neutral lg:text-5xl">
-                  Best place to choose <br /> your{" "}
-                  <span className="text-[#698172] text-5xl opacity-100 transition-opacity duration-2000">
-                    {tagName}
-                  </span>
-                </p>
-
-                <p className="mt-3 text-gray-600 dark:text-gray-400">
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                  Porro beatae error laborum ab amet sunt recusandae? Reiciendis
-                  natus perspiciatis optio.
-                </p>
-
-                <Link to="/all">
-                  <button
-                    className="w-full px-5 py-2 mt-6 
-                  text-sm tracking-wider text-white 
-                  uppercase transition-colors duration-300 
-                  transform bg-blue-600 rounded-lg 
-                  lg:w-auto hover:bg-[#335139] 
-                  focus:outline-none focus:bg-blue-500"
-                  >
-                    Shop Now
-                  </button>
-                </Link>
-              </div>
-            </div>
-
-            <div className="flex items-center justify-center w-full mt-6 lg:mt-0 lg:w-1/2">
-              <img
-                className="w-full h-full lg:max-w-3xl"
-                src={heroImage}
-                // src="https://merakiui.com/images/components/Catalogue-pana.svg"
-                alt="Catalogue-pana.svg"
-              />
-            </div>
+    <div className="hero min-h-screen bg-home-hero bg-cover bg-center relative">
+      <div className="absolute inset-0 flex items-center">
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="bg-white bg-opacity-90 p-8 rounded-lg shadow-lg max-w-md ml-0 mr-auto"> {/* Changed mx-auto to ml-0 mr-auto */}
+            <h1 className="mb-5 text-4xl font-bold text-gray-800">Discover Nature's Finest</h1>
+            <p className="mb-2 text-lg text-gray-600">Trending products in {year}</p>
+            <h2 className="mb-5 text-2xl font-bold text-gray-700">Transform Your Living Space with Natural Elegance</h2>
+            <p className="mb-5 text-gray-600">
+              Elevate your home's aesthetic with <strong>WoodsIndica's</strong> premium timber and expertly crafted furniture. 
+              Experience the perfect blend of functionality and contemporary elegance.
+            </p>
+            <Link to="/shop" className="btn btn-primary">Explore Our Collection</Link>
           </div>
         </div>
-      </main>
-    </>
+      </div>
+    </div>
   );
 };
 

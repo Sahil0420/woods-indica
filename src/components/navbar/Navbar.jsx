@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { AiOutlineShoppingCart } from "react-icons/ai";
+import { BsSun, BsMoon } from "react-icons/bs"; // Add this import for theme icons
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -20,6 +21,9 @@ const Navbar = () => {
   const [displayName, setDisplayName] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  // Add this new state for theme
+  const [theme, setTheme] = useState("light");
 
   //* Monitor currently signed USER
   useEffect(() => {
@@ -42,6 +46,13 @@ const Navbar = () => {
     });
   }, []);
 
+  // Add this new useEffect for theme
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("theme") || "light";
+    setTheme(savedTheme);
+    document.documentElement.setAttribute("data-theme", savedTheme);
+  }, []);
+
   function logOutUser() {
     signOut(auth)
       .then(() => {
@@ -52,6 +63,15 @@ const Navbar = () => {
         toast.error(error.code, error.message);
       });
   }
+
+  // Add this new function for toggling theme
+  const toggleTheme = () => {
+    const newTheme = theme === "light" ? "dark" : "light";
+    setTheme(newTheme);
+    document.documentElement.setAttribute("data-theme", newTheme);
+    localStorage.setItem("theme", newTheme);
+  };
+
   let activeStyle = {
     borderBottom: "2px solid white",
   };
@@ -65,12 +85,16 @@ const Navbar = () => {
     <>
       <nav className="h-[8vh] bg-[#335139] shadow-xl ">
         <div className="navbar w-full md:w-9/12 mx-auto flex items-center justify-between">
-          <section className="md:gap-4">
-            <Link to="/" className="btn btn-ghost ">
-              <img src={logo} alt="" className="object-cover h-24 w-20"/>
-              <h1 className="logo text-white text-lg md:text-3xl ">WoodsIndica</h1>
-            </Link>
-          </section>
+        <section className="flex items-center">
+      <Link to="/" className="flex items-center">
+        <img 
+          src={logo} 
+          alt="WoodsIndica Logo" 
+          className="h-10 w-auto object-contain mr-2" // Adjusted height and added object-contain
+        />
+        <h1 className="logo text-white text-lg md:text-2xl">WoodsIndica</h1>
+      </Link>
+    </section>
           <div>
             <ul className="flex items-center gap-x-6">
               <li className="hidden lg:block text-white text-xs md:text-xl">
@@ -90,7 +114,20 @@ const Navbar = () => {
               </li>
             </ul>
           </div>
-          <div className="md:gap-2">
+          <div className="md:gap-2 flex items-center"> {/* Added flex and items-center here */}
+            {/* Add the theme toggle button here */}
+            <button
+              onClick={toggleTheme}
+              className="btn btn-ghost btn-circle mr-2"
+              aria-label="Toggle theme"
+            >
+              {theme === "light" ? (
+                <BsMoon size={20} color="white" />
+              ) : (
+                <BsSun size={20} color="white" />
+              )}
+            </button>
+
             <div className="dropdown dropdown-end ">
               <label tabIndex={0} className="btn btn-ghost btn-circle">
                 <div className="indicator">
@@ -188,10 +225,6 @@ const Navbar = () => {
           </Link>
         </div>
       </AdminOnlyLink>
-      {/* <div className="min-w-screen py-2 bg-accent flex items-center justify-center">
-        <p className="uppercase font-medium inline-block mx-2">Sale end in </p>
-        <Countdown />
-      </div> */}
     </>
   );
 };
