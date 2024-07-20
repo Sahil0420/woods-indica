@@ -1,9 +1,10 @@
 import React, { useRef, useState } from "react";
-import { Header } from "../../components";
 import { CiPhone } from "react-icons/ci";
 import { AiOutlineMail, AiOutlineTwitter } from "react-icons/ai";
 import emailjs from "@emailjs/browser";
 import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
+import { HiHome, HiChevronRight } from "react-icons/hi";
 
 const Contact = () => {
    const formRef = useRef();
@@ -35,7 +36,23 @@ const Contact = () => {
 
    return (
       <>
-         <Header className="bg-secondary" text="Contact Us" />
+         <nav className="bg-secondary py-4 md:py-6 shadow-md" aria-label="Breadcrumb">
+            <div className="w-full mx-auto px-4 lg:w-9/12 md:px-6">
+               <ol className="flex flex-wrap items-center space-x-2 md:space-x-4">
+                  <li className="flex items-center">
+                     <Link to="/" className="flex items-center text-primary hover:text-accent transition-colors duration-200">
+                        <HiHome className="w-5 h-5 mr-1" />
+                        <span className="text-sm md:text-base font-medium">Home</span>
+                     </Link>
+                  </li>
+                  <li className="flex items-center">
+                     <HiChevronRight className="w-4 h-4 text-primary" />
+                     <span className="ml-2 text-sm md:text-base font-medium text-accent">Contact</span>
+                  </li>
+               </ol>
+            </div>
+         </nav>
+
          <main className="w-full mx-auto px-2 lg:w-9/12 md:px-6 mt-4 lg:mt-6 flex flex-col md:flex-row justify-between gap-10">
             <section className="w-full  md:w-[30rem] bg-primary rounded-lg p-6 h-72">
                {/* Card */}
