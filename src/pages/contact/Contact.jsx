@@ -35,7 +35,7 @@ const Contact = () => {
 
    return (
       <>
-         <Header text="Contact Us" />
+         <Header className="bg-secondary" text="Contact Us" />
          <main className="w-full mx-auto px-2 lg:w-9/12 md:px-6 mt-4 lg:mt-6 flex flex-col md:flex-row justify-between gap-10">
             <section className="w-full  md:w-[30rem] bg-primary rounded-lg p-6 h-72">
                {/* Card */}
