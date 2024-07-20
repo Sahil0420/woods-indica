@@ -103,7 +103,7 @@ const Home = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 bg-primary text-primary-content">
+      <section className="py-16 bg-secondary text-primary">
         <div className="container mx-auto px-4">
           <div className="flex flex-col lg:flex-row items-center justify-between">
             <div className="lg:w-2/3 mb-8 lg:mb-0">
