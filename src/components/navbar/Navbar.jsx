@@ -151,17 +151,17 @@ const Navbar = () => {
             {" "}
             {/* Added flex and items-center here */}
             {/* Add the theme toggle button here */}
-            <button
+            {/* <button
               onClick={toggleTheme}
               className="btn btn-ghost btn-circle mr-2"
               aria-label="Toggle theme"
-            >
-              {theme === "light" ? (
+            > */}
+              {/* {theme === "light" ? (
                 <BsMoon size={20} color="black" />
               ) : (
                 <BsSun size={20} color="white" />
               )}
-            </button>
+            </button> */}
             <div className="dropdown dropdown-end ">
               <label tabIndex={0} className="btn btn-ghost btn-circle">
                 <div className="indicator">
