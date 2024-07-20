@@ -22,7 +22,7 @@ const Allproducts = () => {
 	return (
 		<>
 			{isLoading && <Loader />}
-			<main className="w-full" >
+			<main className="w-full bg-background" >
 				<Breadcrumbs />
 				<section className="w-full mx-auto p-4 md:p-10 lg:w-9/12 md:px-6 flex h-full">
 					<aside className="hidden sm:block sm:w-64 mx-2 ">

@@ -12,17 +12,17 @@ const AdminSidebar = () => {
 		// padding: "0.5rem 0",
 	};
 	return (
-		<div className="w-full">
+		<div className="w-full text-black">
 			<div className="w-full h-44 bg-primary flex items-center justify-center flex-col gap-2 text-center">
-				<RiAdminLine size={40} color="white" />
+				<RiAdminLine size={40} color="white"/>
 				<h1 className="text-lg md:text-2xl font-bold text-gray-200">{userName}</h1>
 			</div>
-			<div className="text-md md:text-xl py-4 pl-2">
+			<div className="text-md text-neutral md:text-xl py-4 pl-2">
 				<NavLink to="/admin/home" style={({ isActive }) => (isActive ? activeStyle : null)}>
 					Home
 				</NavLink>
 			</div>
-			<div className="text-md md:text-xl py-4 pl-2">
+			<div className="text-md text-neutral md:text-xl py-4 pl-2">
 				<NavLink
 					to="/admin/all-products"
 					style={({ isActive }) => (isActive ? activeStyle : null)}
@@ -30,7 +30,7 @@ const AdminSidebar = () => {
 					All Products
 				</NavLink>
 			</div>
-			<div className="text-md md:text-xl py-4  pl-2">
+			<div className="text-md text-neutral md:text-xl py-4  pl-2">
 				<NavLink
 					to="/admin/add-product/ADD"
 					style={({ isActive }) => (isActive ? activeStyle : null)}
@@ -38,7 +38,7 @@ const AdminSidebar = () => {
 					Add Products
 				</NavLink>
 			</div>
-			<div className="text-md md:text-xl py-4  pl-2">
+			<div className="text-md text-neutral md:text-xl py-4  pl-2">
 				<NavLink
 					to="/admin/orders"
 					style={({ isActive }) => (isActive ? activeStyle : null)}

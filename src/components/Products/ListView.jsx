@@ -12,7 +12,7 @@ const ListView = ({ products }) => {
 	const dispatch = useDispatch();
 
 	if (!products.length) {
-		return <h1 className="text-3xl font-bold">No Products Found</h1>;
+		return <h1 className="text-3xl text-neutral font-bold">No Products Found</h1>;
 	}
 
 	function add2CartFunction(product) {
@@ -24,7 +24,7 @@ const ListView = ({ products }) => {
 			{products.map((product) => {
 				return (
 					<div key={product.id} className="mx-auto ">
-						<div className="flex flex-col xl:flex-row gap-x-5 relative shadow-md hover:scale-105 duration-300 p-2 items-center">
+						<div className="flex  flex-col xl:flex-row gap-x-5 relative shadow-md hover:scale-105 duration-300 p-2 items-center">
 							<LazyLoadImage
 								src={product.imgUrl}
 								alt={product.productName}

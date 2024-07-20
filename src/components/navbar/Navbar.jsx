@@ -11,13 +11,21 @@ import { auth } from "../../firebase/config";
 //Redux
 import { useDispatch, useSelector } from "react-redux";
 import { removeActiveUser, setActiveUser } from "../../redux/slice/authSlice";
-import { calculateSubtotal, calculateTotalQuantity } from "../../redux/slice/cartSlice";
+import {
+  calculateSubtotal,
+  calculateTotalQuantity,
+} from "../../redux/slice/cartSlice";
 import { formatPrice } from "../../utils/formatPrice";
-import logo from '../../assets/drawing.svg'
+import logoLight from "../../assets/logo-light.svg";
+import logoDark from "../../assets/logo-dark.svg";
+import { FaUserCircle } from "react-icons/fa";
+import { motion } from "framer-motion";
 
 const Navbar = () => {
   const { isUserLoggedIn, userName } = useSelector((store) => store.auth);
-  const { totalAmount, totalQuantity, cartItems } = useSelector((store) => store.cart);
+  const { totalAmount, totalQuantity, cartItems } = useSelector(
+    (store) => store.cart
+  );
   const [displayName, setDisplayName] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -83,38 +91,65 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="h-[8vh] bg-[#335139] shadow-xl ">
+      <motion.nav
+        initial={{ height: 0 }}
+        animate={{ height: 100 }}
+        transition={{ stiffness: 800 }}
+        className="h-[20] bg-primary shadow-xl "
+      >
         <div className="navbar w-full md:w-9/12 mx-auto flex items-center justify-between">
-        <section className="flex items-center">
-      <Link to="/" className="flex items-center">
-        <img 
-          src={logo} 
-          alt="WoodsIndica Logo" 
-          className="h-10 w-auto object-contain mr-2" // Adjusted height and added object-contain
-        />
-        <h1 className="logo text-white text-lg md:text-2xl">WoodsIndica</h1>
-      </Link>
-    </section>
+          <section className="flex items-center">
+            <Link to="/" className="flex items-center">
+              {theme === "light" ? (
+                <img
+                  src={logoLight}
+                  alt="WoodsIndica Logo"
+                  className=" h-20 w-auto object-contain mr-2" // Adjusted height and added object-contain
+                />
+              ) : (
+                <img
+                  src={logoDark}
+                  alt="WoodsIndica Logo"
+                  className=" h-20 w-auto object-contain mr-2" // Adjusted height and added object-contain
+                />
+              )}
+              <h1 className="logo text-primary-content text-lg md:text-2xl">
+                WoodsIndica
+              </h1>
+            </Link>
+          </section>
           <div>
             <ul className="flex items-center gap-x-6">
-              <li className="hidden lg:block text-white text-xs md:text-xl">
-                <NavLink to="/" style={({ isActive }) => (isActive ? activeStyle : null)} end>
+              <li className="hidden lg:block  text-primary-content text-xs md:text-xl">
+                <NavLink
+                  to="/"
+                  style={({ isActive }) => (isActive ? activeStyle : null)}
+                  end
+                >
                   Home
                 </NavLink>
               </li>
-              <li className="hidden lg:block text-white text-xs md:text-xl">
-                <NavLink to="/all" style={({ isActive }) => (isActive ? activeStyle : null)}>
+              <li className="hidden lg:block text-primary-content text-xs md:text-xl">
+                <NavLink
+                  to="/all"
+                  style={({ isActive }) => (isActive ? activeStyle : null)}
+                >
                   All Products
                 </NavLink>
               </li>
-              <li className="hidden lg:block text-white text-xs md:text-xl">
-                <NavLink to="/contact" style={({ isActive }) => (isActive ? activeStyle : null)}>
+              <li className="hidden lg:block text-primary-content text-xs md:text-xl">
+                <NavLink
+                  to="/contact"
+                  style={({ isActive }) => (isActive ? activeStyle : null)}
+                >
                   Contact Us
                 </NavLink>
               </li>
             </ul>
           </div>
-          <div className="md:gap-2 flex items-center"> {/* Added flex and items-center here */}
+          <div className="md:gap-2 flex items-center">
+            {" "}
+            {/* Added flex and items-center here */}
             {/* Add the theme toggle button here */}
             <button
               onClick={toggleTheme}
@@ -122,17 +157,21 @@ const Navbar = () => {
               aria-label="Toggle theme"
             >
               {theme === "light" ? (
-                <BsMoon size={20} color="white" />
+                <BsMoon size={20} color="black" />
               ) : (
                 <BsSun size={20} color="white" />
               )}
             </button>
-
             <div className="dropdown dropdown-end ">
               <label tabIndex={0} className="btn btn-ghost btn-circle">
                 <div className="indicator">
-                  <AiOutlineShoppingCart size={30} color="white" />
-                  <span className="badge badge-primary indicator-item">{totalQuantity}</span>
+                  <AiOutlineShoppingCart
+                    size={30}
+                    color={theme === "light" ? "black" : "white"}
+                  />
+                  <span className="badge badge-secondary indicator-item">
+                    {totalQuantity}
+                  </span>
                 </div>
               </label>
               <div
@@ -140,7 +179,9 @@ const Navbar = () => {
                 className="mt-3 card card-compact dropdown-content w-52 bg-base-100  shadow-xl "
               >
                 <div className="card-body">
-                  <span className="font-bold text-lg">{totalQuantity} Items</span>
+                  <span className="font-bold text-lg">
+                    {totalQuantity} Items
+                  </span>
                   <span>Subtotal: {formatPrice(totalAmount)}</span>
                   <div className="card-actions">
                     <Link to="/cart" className="btn btn-primary btn-block">
@@ -153,11 +194,7 @@ const Navbar = () => {
             <div className="dropdown dropdown-end ml-4">
               <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
                 <div className="rounded-full">
-                  <img
-                    src="https://png.pngtree.com/png-clipart/20210915/ourmid/pngtree-user-avatar-placeholder-white-blue-png-image_3918443.jpg"
-                    alt="dp"
-                    className="w-10 h-10 object-fill"
-                  />
+                  <FaUserCircle size={32} />
                 </div>
               </label>
               <ul
@@ -165,15 +202,15 @@ const Navbar = () => {
                 className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52 "
               >
                 {userName && (
-                  <li className="bg-primary text-gray-200">
+                  <li className="bg-light text-gray-200">
                     <p className="block">
                       Welcome, <span className="font-bold">{userName}</span>
                     </p>
                   </li>
                 )}
-                <div className="block lg:hidden">
+                <div className="block  lg:hidden">
                   <li>
-                    <Link to="/" className="text-lg ">
+                    <Link to="/" className="text-black-500 text-lg ">
                       Home
                     </Link>
                   </li>
@@ -208,7 +245,10 @@ const Navbar = () => {
                   </div>
                 ) : (
                   <li>
-                    <label htmlFor="my-modal-4" className="modal-button text-lg text-primary">
+                    <label
+                      htmlFor="my-modal-4"
+                      className="modal-button text-lg text-primary"
+                    >
                       Login
                     </label>
                   </li>
@@ -217,13 +257,18 @@ const Navbar = () => {
             </div>
           </div>
         </div>
-      </nav>
+      </motion.nav>
       <AdminOnlyLink>
-        <div className="min-w-screen h-20  py-1 bg-[#335139] font-bold text-center cursor-pointer">
-          <Link to="/admin/home" className="btn btn-primary btn-sm mx-4">
+        <motion.div
+          initial={{ height: 0 }}
+          animate={{ height: 50 }}
+          transition={{ stiffness: 1000 }}
+          className="min-w-screen h-20  py-1 bg-primary font-bold text-center cursor-pointer"
+        >
+          <Link to="/admin/home" className="btn bg-accent btn-sm mx-4">
             VIEW DASHBOARD
           </Link>
-        </div>
+        </motion.div>
       </AdminOnlyLink>
     </>
   );

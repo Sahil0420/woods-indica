@@ -12,7 +12,7 @@ import { addToCart } from "../../redux/slice/cartSlice";
 const GridView = ({ products }) => {
 	const dispatch = useDispatch();
 	if (!products.length) {
-		return <h1 className="text-3xl font-bold">No Products Found</h1>;
+		return <h1 className="text-3xl text-neutral font-bold">No Products Found</h1>;
 	}
 
 	function add2CartFunction(product) {
@@ -26,7 +26,7 @@ const GridView = ({ products }) => {
 				return (
 					<div key={id} className="mx-auto ">
 						<div className="group">
-							<div className="card w-72 shadow-md relative hover:scale-105 duration-300 items-center">
+							<div className="card w-72 shadow-md relative border border-primary bg-secondary hover:scale-105 duration-300 items-center">
 								<LazyLoadImage
 									src={imgUrl}
 									alt={productName}
@@ -35,7 +35,7 @@ const GridView = ({ products }) => {
 									effect="blur"
 								/>
 								<div className=" absolute top-0 right-0">
-									<span className="badge bg-[#335139] text-md p-3">Free Delivery</span>
+									<span className="badge bg-accent text-md p-3">Free Delivery</span>
 								</div>
 								<div className="my-4 items-center text-center">
 									<h1 className="font-semibold py-2">{productName}</h1>

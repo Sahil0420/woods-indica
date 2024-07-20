@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import Loader from "../loader/Loader";
 import { useNavigate, useParams } from "react-router-dom";
 import { categories } from "../../utils/adminProductCategories";
-import { defaultValues } from "../../utils/adminAddProductDefaultValues";
 import {
   ref,
   uploadBytesResumable,
@@ -14,33 +13,46 @@ import { collection, addDoc, Timestamp, setDoc, doc } from "firebase/firestore";
 import { storage, db } from "../../firebase/config";
 import { useSelector } from "react-redux";
 
-//! Handle Input Changes
 const AddProducts = () => {
   const navigate = useNavigate();
   const { id: paramsId } = useParams();
   const { products: reduxProducts } = useSelector((store) => store.product);
   const productEdit = reduxProducts.find((item) => item.id === paramsId);
-  const [product, setProduct] = useState(() => {
-    return detectForm(paramsId, defaultValues, productEdit);
+
+  const [product, setProduct] = useState({
+    productName: "",
+    price: "",
+    category: "",
+    description: "",
+    shortDescription: "",
+    imgUrl: "",
   });
   const [uploadProgress, setUploadProgress] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
 
-  //! Check for Add or Edit
-  function detectForm(paramsId, func1, func2) {
-    if (paramsId === "ADD") return func1;
-    return func2;
-  }
+  useEffect(() => {
+    if (productEdit && paramsId !== "ADD") {
+      setProduct({
+        productName: productEdit.productName || "",
+        price: productEdit.price || "",
+        category: productEdit.category || "",
+        description: productEdit.description || "",
+        shortDescription: productEdit.shortDescription || "",
+        imgUrl: productEdit.imgUrl || "",
+      });
+    }
+  }, [productEdit, paramsId]);
 
-  function handleInputChange(e) {
+  const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setProduct({ ...product, [name]: value });
-  }
-  //! File Upload to FireStorage
-  function handleImageChange(e) {
+    setProduct((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleImageChange = (e) => {
     const file = e.target.files[0];
-    const storageRef = ref(storage, `images/${Date.now()}${file.name}`);
+    const storageRef = ref(storage, `productImages/${Date.now()}${file.name}`);
     const uploadTask = uploadBytesResumable(storageRef, file);
+
     uploadTask.on(
       "state_changed",
       (snapshot) => {
@@ -49,115 +61,85 @@ const AddProducts = () => {
         setUploadProgress(progress);
       },
       (error) => {
-        toast.error(error.code, error.message);
+        toast.error(error.message);
       },
       () => {
-        // Handle successful uploads on complete
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-          setProduct({ ...product, imgUrl: downloadURL });
-          toast.success("File Uploaded Successfully");
+          setProduct((prev) => ({ ...prev, imgUrl: downloadURL }));
+          toast.success("Image uploaded successfully");
         });
       }
     );
-  }
-  //! Add Product to Firebase
-  async function addProduct(e) {
-    e.preventDefault();
-    setIsLoading(true);
-    try {
-      const docRef = await addDoc(collection(db, "products"), {
-        productName: product.name,
-        imgUrl: product.imgUrl,
-        price: Number(product.price),
-        category: product.category,
-        description: product.description,
-        createdAt: Timestamp.now().toDate(),
-      });
-      setUploadProgress(0);
-      setProduct(defaultValues);
-      setIsLoading(false);
-      toast.success("Product added to Database Successfully");
-      navigate("/admin/all-products");
-    } catch (error) {
-      console.log(error.message);
-      toast.error("Something Went Wrong , Check Console");
-      setIsLoading(false);
-    }
-  }
-  //! Edit Product
-  async function editProduct(e) {
-    e.preventDefault();
-    setIsLoading(true);
-    // Check if the image is updated
-    if (product.imgUrl !== productEdit.imgUrl) {
-      // deleting image from database storage
-      const storageRef = ref(storage, productEdit.imgUrl);
-      await deleteObject(storageRef);
-    }
-    try {
-      await setDoc(doc(db, "products", paramsId), {
-        productName: product.name,
-        imgUrl: product.imgUrl,
-        price: Number(product.price),
-        category: product.category,
-        description: product.description,
-        // Preserving created at
-        createdAt: productEdit.createdAt,
-        editedAt: Timestamp.now().toDate(),
-      });
-      setUploadProgress(0);
-      setProduct(defaultValues);
-      setIsLoading(false);
-      toast.success("Product Updated Successfully");
-      navigate("/admin/all-products");
-    } catch (error) {
-      console.log(error.message);
-      toast.error("Something Went Wrong , Check Console");
-      setIsLoading(false);
-    }
-  }
+  };
 
-  //! Disable button until everything added to input fields
-  const AllFieldsRequired =
-    Boolean(product.category) &&
-    Boolean(product.description) &&
-    Boolean(product.imgUrl) &&
-    Boolean(product.name) &&
-    Boolean(product.name);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+
+    try {
+      const slug = product.productName.toLowerCase().replace(/ /g, "-");
+      const productData = {
+        ...product,
+        price: Number(product.price),
+        slug,
+        createdAt: Timestamp.now().toDate(),
+      };
+
+      if (paramsId === "ADD") {
+        await addDoc(collection(db, "products"), productData);
+        toast.success("Product added successfully");
+      } else {
+        if (product.imgUrl !== productEdit.imgUrl) {
+          const storageRef = ref(storage, productEdit.imgUrl);
+          await deleteObject(storageRef);
+        }
+        await setDoc(doc(db, "products", paramsId), {
+          ...productData,
+          editedAt: Timestamp.now().toDate(),
+        });
+        toast.success("Product updated successfully");
+      }
+
+      navigate("/admin/all-products");
+    } catch (error) {
+      console.error(error);
+      toast.error("An error occurred. Please try again.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const isFormValid = Object.values(product).every(Boolean);
 
   return (
     <>
       {isLoading && <Loader />}
-
-      <main className="h-full border-r-2 p-1">
-        <h1 className="text-xl md:text-3xl font-semibold pb-3">
-          {detectForm(paramsId, "Add New Product", "Edit Product")}
+      <main className="h-full border-r-2">
+        <h1 className="text-xl md:text-3xl  font-semibold pb-3">
+          {paramsId === "ADD" ? "Add New Product" : "Edit Product"}
         </h1>
-        <form
-          className="form-control"
-          onSubmit={detectForm(paramsId, addProduct, editProduct)}
-        >
+        <form className="form-control" onSubmit={handleSubmit}>
           <div className="py-2">
-            <label className="label-text font-bold mb-2 block text-lg">
+            <label className="label-text text-neutral font-bold mb-2 block text-lg">
               Product Name:
             </label>
             <input
-              className="input input-bordered max-w-lg w-full border-2"
+              className="input text-black input-bordered max-w-lg w-full border-2"
               type="text"
               placeholder="Product Name"
               required
-              name="name"
-              value={product.name}
+              name="productName"
+              value={product.productName}
               onChange={handleInputChange}
             />
           </div>
 
           <div className="py-2">
-            <label className="label-text font-bold mb-2 block text-lg">
-              Product Price:{" "}
+            <label className="label-text text-neutral font-bold mb-2 block text-lg">
+              Product Price:
             </label>
             <input
-              className="input input-bordered max-w-lg w-full border-2"
+              className="input text-black input-bordered max-w-lg w-full border-2"
               type="number"
               placeholder="Product Price"
               required
@@ -166,36 +148,33 @@ const AddProducts = () => {
               onChange={handleInputChange}
             />
           </div>
+
           <div className="py-2">
-            <label className="label-text font-bold mb-2 block text-lg">
+            <label className="label-text text-neutral font-bold mb-2 block text-lg">
               Product Category:
             </label>
             <select
-              className="select select-bordered w-full max-w-lg"
+              className="select text-black select-bordered w-full max-w-lg"
               required
               name="category"
               value={product.category}
               onChange={handleInputChange}
             >
-              <option disabled value="">
-                -- Choose a Product Category --
-              </option>
-              {categories.map((c) => {
-                return (
-                  <option key={c.id} value={c.name}>
-                    {c.name}
-                  </option>
-                );
-              })}
+              <option value="">-- Choose a Product Category --</option>
+              {categories.map((c) => (
+                <option key={c.id} value={c.name}>
+                  {c.name}
+                </option>
+              ))}
             </select>
           </div>
+
           <div className="py-2">
-            <label className="label-text font-bold mb-2 block text-lg">
-              Product Description:{" "}
+            <label className="label-text text-neutral font-bold mb-2 block text-lg">
+              Product Description:
             </label>
             <textarea
-              className="textarea textarea-bordered h-32 max-w-lg w-full"
-              type="text"
+              className="textarea text-black textarea-bordered h-32 max-w-lg w-full"
               placeholder="Product Description"
               required
               name="description"
@@ -203,45 +182,47 @@ const AddProducts = () => {
               onChange={handleInputChange}
             ></textarea>
           </div>
-          <div>
-            <label className="label-text font-bold mb-2 block text-lg">
-              Product Image:{" "}
+
+          <div className="py-2">
+            <label className="label-text text-neutral font-bold mb-2 block text-lg">
+              Short Description:
             </label>
-            <div className="border-2 rounded-sm  max-w-xl w-full px-4 pb-2">
-              <div>
-                <progress
-                  className="progress progress-primary w-44 md:w-72 xl:w-full"
-                  value={uploadProgress}
-                  max="100"
-                ></progress>
-              </div>
-              <input
-                className="max-w-lg w-full"
-                accept="image/all"
-                type="file"
-                placeholder="IMAGE URL"
-                name="image"
-                onChange={handleImageChange}
-              />
-              {product.imgUrl === "" ? null : (
-                <input
-                  className="input input-sm input-bordered max-w-lg w-full my-2"
-                  type="text"
-                  value={product.imgUrl}
-                  required
-                  placeholder="Image URL"
-                  disabled
-                />
-              )}
-            </div>
+            <input
+              className="input text-black input-bordered max-w-lg w-full border-2"
+              type="text"
+              placeholder="Short Description"
+              required
+              name="shortDescription"
+              value={product.shortDescription}
+              onChange={handleInputChange}
+            />
           </div>
 
+          <div>
+            <label className="label-text  text-neutral font-bold mb-2 block text-lg">
+              Product Image:
+            </label>
+            <div className="border-2 rounded-sm max-w-xl w-full px-4 pb-2">
+              <progress
+                className="progress progress-primary w-44 md:w-72 xl:w-full"
+                value={uploadProgress}
+                max="100"
+              ></progress>
+              <input
+                className="max-w-lg w-full"
+                accept="image/*"
+                type="file"
+                onChange={handleImageChange}
+              />
+              {product.imgUrl && <div className="flex justify-center h-80 w-100"><img src={product.imgUrl} className="  " /></div>}
+            </div>
+          </div>
           <button
             type="submit"
-            className="btn btn-primary text-lg max-w-[200px]  mt-2"
-            disabled={!AllFieldsRequired}
+            className="btn btn-background text-lg max-w-[200px] mt-2"
+            disabled={!isFormValid}
           >
-            {detectForm(paramsId, "Add Product", "Update Product")}
+            {paramsId === "ADD" ? "Add Product" : "Update Product"}
           </button>
         </form>
       </main>

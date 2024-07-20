@@ -9,9 +9,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { totalOrderAmount, storeOrders } from "../../redux/slice/orderSlice";
 import useFetchCollection from "../../hooks/useFetchCollection";
 
-const earningIcon = <BiRupee size={22} color="white" />;
-const productIcon = <FaCartArrowDown size={22} color="white" />;
-const orderIcon = <BsCart size={22} color="white" />;
+const earningIcon = <BiRupee size={22}  color="green" />;
+const productIcon = <FaCartArrowDown size={22} color="green" />;
+const orderIcon = <BsCart size={22} color="green" />;
 
 const AdminHome = () => {
 	const { data } = useFetchCollection("orders");

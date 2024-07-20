@@ -26,7 +26,12 @@ const Home = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % furnitureImages.length);
+      setCurrentImageIndex((prevIndex) => {
+        if (prevIndex === furnitureImages.length - 1) {
+          return 0; // Reset to first image
+        }
+        return prevIndex + 1;
+      });
     }, 5000);
 
     return () => clearInterval(interval);
@@ -44,7 +49,7 @@ const Home = () => {
       <Hero />
       
       {/* Categories Section */}
-      <section className="py-16 bg-base-100">
+      <section className="py-16 bg-secondary">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center text-primary mb-12">Our Offerings</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -62,16 +67,21 @@ const Home = () => {
       </section>
 
       {/* Custom Furniture Section */}
-      <section className="py-16 bg-base-200">
+      <section className="py-16 bg-primary">
         <div className="container mx-auto px-4">
           <div className="flex flex-col lg:flex-row items-center">
             <div className="lg:w-1/2 mb-8 lg:mb-0">
-              <div className="carousel w-full">
-                {furnitureImages.map((img, index) => (
-                  <div key={index} className={`carousel-item w-full ${index === currentImageIndex ? 'visible' : 'hidden'}`}>
-                    <img src={img} className="w-full" alt={`Custom Furniture ${index + 1}`} />
-                  </div>
-                ))}
+              <div className="carousel relative overflow-hidden w-full">
+                <div
+                  className="flex transition-transform duration-500 ease-in-out"
+                  style={{ transform: `translateX(-${currentImageIndex * 100}%)` }}
+                >
+                  {furnitureImages.map((img, index) => (
+                    <div key={index} className="carousel-item w-full flex-shrink-0">
+                      <img src={img} className="w-full" alt={`Custom Furniture ${index + 1}`} />
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
             <div className="lg:w-1/2 lg:pl-12">
@@ -93,7 +103,7 @@ const Home = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 bg-primary text-primary-content">
+      <section className="py-16 bg-secondary text-primary-content">
         <div className="container mx-auto px-4">
           <div className="flex flex-col lg:flex-row items-center justify-between">
             <div className="lg:w-2/3 mb-8 lg:mb-0">
@@ -101,7 +111,7 @@ const Home = () => {
               <p className="text-xl">Discover our wide range of premium woods, essential oils, and custom furniture options today.</p>
             </div>
             <div>
-              <Link to="/shop" className="btn btn-secondary">Shop Now</Link>
+              <Link to="/all" className="btn btn-wide bg-neutral">Shop Now</Link>
             </div>
           </div>
         </div>

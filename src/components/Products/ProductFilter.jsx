@@ -33,7 +33,7 @@ const ProductFilter = () => {
   }
 
   return (
-    <div className="flex flex-col gap-y-5">
+    <div className="flex text-neutral flex-col gap-y-5">
       {/* Categories */}
       <div>
         <h1 className="font-bold">CATEGORIES</h1>

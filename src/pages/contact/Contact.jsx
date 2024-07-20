@@ -37,7 +37,7 @@ const Contact = () => {
       <>
          <Header text="Contact Us" />
          <main className="w-full mx-auto px-2 lg:w-9/12 md:px-6 mt-4 lg:mt-6 flex flex-col md:flex-row justify-between gap-10">
-            <section className="w-full md:w-[30rem] bg-primary-content rounded-md p-6 h-72">
+            <section className="w-full  md:w-[30rem] bg-primary rounded-lg p-6 h-72">
                {/* Card */}
                <div className="mb-10">
                   <h1 className="text-xl md:text-3xl mb-2">
@@ -56,7 +56,7 @@ const Contact = () => {
                   </div>
                   <div className="flex items-center gap-2  my-2 md:text-xl">
                      <CiPhone />
-                     <a href="tel:+91-123-12345">91-123-12345</a>
+                     <a href="tel:+91-123-12345">78763-18945</a>
                   </div>
                   <div className="flex items-center gap-2 md:text-xl  my-2">
                      <AiOutlineTwitter />
@@ -70,7 +70,7 @@ const Contact = () => {
                   </div>
                </div>
             </section>
-            <section className="w-full md:w-2/3 rounded-md shadow-lg border-2 p-6">
+            <section className="w-full md:w-2/3 rounded-lg bg-primary shadow-lg  p-6">
                {/* Form */}
                <h1 className="text-xl md:text-3xl">Contact Us</h1>
                <form
@@ -83,7 +83,7 @@ const Contact = () => {
                         Name :
                      </label>
                      <input
-                        className="input input-bordered max-w-lg w-full border-2"
+                        className="input input-bordered max-w-lg text-neutral w-full border-2"
                         type="text"
                         placeholder="Full Name"
                         required

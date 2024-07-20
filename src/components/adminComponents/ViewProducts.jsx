@@ -49,7 +49,7 @@ const ViewProducts = () => {
   return (
     <>
       {isLoading && <Loader />}
-      <h1 className="text-xl md:text-3xl font-semibold ">All Products</h1>
+      <h1 className="text-xl md:text-3xl text-accent text-center font-semibold ">All Products</h1>
       {products.length && (
         <div>
           <div className="underline">
@@ -67,12 +67,12 @@ const ViewProducts = () => {
               {/* TABLE HEAD */}
               <thead>
                 <tr>
-                  <th className="text-md sm:text-lg "></th>
-                  <th className="text-md sm:text-lg">Image</th>
-                  <th className="text-md sm:text-lg ">Name</th>
-                  <th className="text-md sm:text-lg">Category</th>
-                  <th className="text-md sm:text-lg">Price</th>
-                  <th className="text-md sm:text-lg">Options</th>
+                  <th className="text-md bg-primary text-neutral sm:text-lg "></th>
+                  <th className="text-md bg-primary text-neutral sm:text-lg">Image</th>
+                  <th className="text-md bg-primary text-neutral sm:text-lg ">Name</th>
+                  <th className="text-md bg-primary text-neutral sm:text-lg">Category</th>
+                  <th className="text-md bg-primary text-neutral sm:text-lg">Price</th>
+                  <th className="text-md bg-primary text-neutral sm:text-lg">Options</th>
                 </tr>
               </thead>
               {/* TABLE BODY */}
@@ -80,7 +80,7 @@ const ViewProducts = () => {
                 {filteredProducts?.map((p, index) => {
                   const { id, productName, category, price, imgUrl } = p;
                   return (
-                    <tr key={id} className="hover">
+                    <tr key={id} className="">
                       <td>{index + 1}</td>
                       <td>
                         <div>
@@ -96,9 +96,9 @@ const ViewProducts = () => {
                           />
                         </div>
                       </td>
-                      <td className="text-lg font-light w-[200px] ">{productName}</td>
-                      <td className="text-lg font-light">{category}</td>
-                      <td className="text-lg font-light">{formatPrice(price)}</td>
+                      <td className="text-lg text-black font-light w-[200px] ">{productName}</td>
+                      <td className="text-lg text-black font-light">{category}</td>
+                      <td className="text-lg text-black font-light">{formatPrice(price)}</td>
                       <td>
                         <div className="flex flex-col md:flex-row gap-2 ">
                           <Link to={`/admin/add-product/${id}`}>
