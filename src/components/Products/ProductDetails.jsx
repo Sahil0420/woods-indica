@@ -61,7 +61,7 @@ const ProductDetails = () => {
       {isLoading && <Loader />}
       <Breadcrumbs type={product.name} />
       <section className="w-full mx-auto p-4 md:p-10 lg:w-9/12 md:px-6 ">
-        <h1 className="text-2xl font-semibold">Product Details </h1>
+        <h1 className="text-2xl text-primary font-semibold">Product Details </h1>
         <Link to="/all" className="link ">
           &larr; Back to All Products
         </Link>
@@ -77,7 +77,7 @@ const ProductDetails = () => {
           </div>
           <div className="flex-1">
             <h1
-              className="text-3xl mb-2"
+              className="text-3xl text-primary mb-2"
               style={{ textTransform: "capitalize" }}
             >
               {product.productName}
@@ -118,7 +118,7 @@ const ProductDetails = () => {
         </article>
         <section className="rounded-md shadow-lg">
           <div className="w-full">
-            <h1 className="text-lg md:text-2xl font-semibold mt-2 p-2">
+            <h1 className="text-lg md:text-2xl text-primary font-semibold mt-2 p-2">
               Reviews
             </h1>
           </div>
