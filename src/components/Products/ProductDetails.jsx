@@ -62,7 +62,7 @@ const ProductDetails = () => {
       <Breadcrumbs type={product.name} />
       <section className="w-full mx-auto p-4 md:p-10 lg:w-9/12 md:px-6 ">
         <h1 className="text-2xl text-primary font-semibold">Product Details </h1>
-        <Link to="/all" className="link ">
+        <Link to="/all" className="link text-gray-600 ">
           &larr; Back to All Products
         </Link>
         <article className="flex flex-col md:flex-row items-start justify-between py-4 gap-x-4">
