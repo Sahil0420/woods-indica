@@ -19,13 +19,14 @@ module.exports = {
     themes: [
       {
         light: {
-          primary: "#45866D",
-          secondary : "#F6F6F7",
-          accent: "#356118",
-          neutral: "#2D3837",
-          background : "#eeedeb",
-          "primary-content": "#000000",
+          primary: "#8B4513",    // Saddle Brown - rich wood color
+          secondary: "#F4EBD0",  // Soft cream - light wood tone
+          accent: "#228B22",     // Forest Green - representing forest/plants
+          neutral: "#5E503F",    // Dark brown - for text and details
+          background: "#FAF3E0", // Beige - warm, light background
+          "primary-content": "#FFFFFF", // White - for text on primary color
           
+          // Keeping all other values the same
           "--rounded-box": "1rem",
           "--rounded-btn": "0.5rem",
           "--rounded-badge": "1.9rem",
@@ -39,13 +40,14 @@ module.exports = {
       },
       {
         dark: {
-          primary: "#222831",
-          secondary : "#31363f",
-          accent : "#76abae",
-          neutral : "#eeeeee",
-          background : "#2f3645",
-
-          "primary-content": "#ffffff",
+          primary: "#2C3E50",    // Dark slate blue - deep forest at night
+          secondary: "#34495E",  // Darker slate blue - for contrast
+          accent: "#27AE60",     // Emerald green - forest foliage
+          neutral: "#ECF0F1",    // Light grayish blue - for text
+          background: "#1C2833", // Very dark blue - night sky
+        
+          "primary-content": "#FFFFFF", // White - for text on primary color
+          "highlight": "#E67E22",       // Deep orange - for highlights and headings
 
           "--rounded-box": "1rem",
           "--rounded-btn": "0.5rem",

@@ -78,7 +78,7 @@ const Home = () => {
                 >
                   {furnitureImages.map((img, index) => (
                     <div key={index} className="carousel-item w-full flex-shrink-0">
-                      <img src={img} className="w-full" alt={`Custom Furniture ${index + 1}`} />
+                      <img src={img} className="w-full object-cover rounded-md" alt={`Custom Furniture ${index + 1}`} />
                     </div>
                   ))}
                 </div>
