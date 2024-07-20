@@ -2,10 +2,10 @@ module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
-      backgroundImage: {
-        "home-hero":
-          "linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('./src/assets/workshop.jpg')",
-      },
+      // backgroundImage: {
+      //   "home-hero":
+      //     "linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('./src/assets/workshop.jpg')",
+      // },
       transitionProperty: {
         width: "width",
         spacing: "margin, padding",

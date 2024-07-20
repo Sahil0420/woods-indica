@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import bgImage from '../../assets/workshop.jpg'
 
 const tags = ["Furniture", "Essential Oils", "Timber"];
 
@@ -21,7 +22,7 @@ const Hero = () => {
   }, []);
 
   return (
-    <div className="hero min-h-screen bg-home-hero bg-cover bg-center relative">
+    <div style={{background : `url(${bgImage})`}} className="hero min-h-screen bg-cover bg-center relative">
       <div className="absolute inset-0 flex items-center">
         <motion.div
           initial={{ scale: 0 }}
