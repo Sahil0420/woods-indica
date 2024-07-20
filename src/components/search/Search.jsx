@@ -9,7 +9,7 @@ const Search = ({ value, onChange }) => {
 					value={value}
 					onChange={onChange}
 					placeholder="Search by name"
-					className="input input-bordered w-[300px]"
+					className="input text-gray-700 input-bordered w-[300px]"
 				/>
 				<button className="btn btn-square">
 					<BiSearch size={24} />

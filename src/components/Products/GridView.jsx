@@ -38,8 +38,8 @@ const GridView = ({ products }) => {
 									<span className="badge bg-accent text-md p-3">Free Delivery</span>
 								</div>
 								<div className="my-4 items-center text-center">
-									<h1 className="font-semibold py-2">{productName}</h1>
-									<p className="py-2 text-lg">{formatPrice(price)}</p>
+									<h1 className="font-semibold text-gray-700 py-2">{productName}</h1>
+									<p className="py-2 text-gray-600 text-lg">{formatPrice(price)}</p>
 								</div>
 								<div className="absolute top-0 right-0 h-full w-full group-hover:bg-[rgba(0,0,0,0.5)] duration-300"></div>
 								<Link to={`/product-details/${id}`}>

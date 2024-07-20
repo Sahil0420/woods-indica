@@ -68,28 +68,30 @@ const ProductList = ({ products }) => {
           <div className="flex gap-4">
             <BsFillGridFill
               size={28}
+              color={grid ? "white" : "gray"}
               onClick={() => setGrid(true)}
               className={` rounded-md p-1 ${
-                grid ? "bg-primary text-white" : null
+                grid ? "bg-gray-600 text-white" : null
               }`}
             />
             <MdOutlineSubject
               size={28}
+              color={grid ? "gray" : "white"}
               onClick={() => setGrid(false)}
               className={` rounded-md p-1 ${
-                grid ? null : "bg-primary text-white"
+                grid ? null : "bg-gray-600"
               }`}
             />
           </div>
-          <h1>
-            <span className="font-bold">{filteredProducts.length} </span>-
+          <h1 className="text-gray-600"> 
+            <span className="font-bold text-gray-600">{filteredProducts.length} </span>-
             Products Found
           </h1>
         </div>
         {/* Search Bar */}
-        <Search value={search} onChange={(e) => setSearch(e.target.value)} />
+        <Search value={search}  onChange={(e) => setSearch(e.target.value)} />
         {/* Sorting List */}
-        <div className="flex gap-2 items-center">
+        <div className="flex gap-2 text-gray-700 items-center">
           <label>Sort by:</label>
           <select
             value={sort}
