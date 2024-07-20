@@ -54,9 +54,9 @@ const Home = () => {
           <h2 className="text-3xl font-bold text-center text-primary mb-12">Our Offerings</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {categories.map((category, index) => (
-              <div key={index} className="card bg-base-200 shadow-xl">
+              <div key={index} className="card bg-primary bg-base-200 shadow-xl">
                 <div className="card-body items-center text-center">
-                  <div className="text-5xl text-primary mb-4">{category.icon}</div>
+                  <div className="text-5xl  text-secondary mb-4">{category.icon}</div>
                   <h3 className="card-title">{category.name}</h3>
                   <p>{category.description}</p>
                 </div>
