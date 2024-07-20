@@ -85,7 +85,7 @@ const Home = () => {
               </div>
             </div>
             <div className="lg:w-1/2 lg:pl-12">
-              <h2 className="text-3xl font-bold text-primary mb-4">Custom Furniture Crafted Just for You</h2>
+              <h2 className="text-3xl font-bold text-white mb-4">Custom Furniture Crafted Just for You</h2>
               <p className="mb-6">
                 Bring your vision to life with our bespoke furniture service. Our expert craftsmen blend traditional 
                 woodworking techniques with modern design to create unique pieces that perfectly fit your space and style.
@@ -103,14 +103,14 @@ const Home = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 bg-secondary text-primary-content">
+      <section className="py-16 bg-primary text-primary-content">
         <div className="container mx-auto px-4">
           <div className="flex flex-col lg:flex-row items-center justify-between">
             <div className="lg:w-2/3 mb-8 lg:mb-0">
               <h2 className="text-3xl font-bold mb-4">Ready to Transform Your Space?</h2>
               <p className="text-xl">Discover our wide range of premium woods, essential oils, and custom furniture options today.</p>
             </div>
-            <div>
+            <div className="">
               <Link to="/all" className="btn btn-wide bg-neutral">Shop Now</Link>
             </div>
           </div>

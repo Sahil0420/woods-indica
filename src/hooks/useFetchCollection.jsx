@@ -37,6 +37,7 @@ const useFetchCollection = (collectionName) => {
   }, [collectionName]);
 
   return { data, isLoading };
+  
 };
 
 export default useFetchCollection;
