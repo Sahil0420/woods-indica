@@ -19,7 +19,7 @@ const useFetchCollection = (collectionName) => {
           id: doc.id,
           ...doc.data()
         }));
-        console.log(`Fetched ${collectionName}:`, allData);
+        // console.log(`Fetched ${collectionName}:`, allData);
         setData(allData);
         setIsLoading(false);
       }, (error) => {

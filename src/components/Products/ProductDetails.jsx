@@ -35,7 +35,7 @@ const ProductDetails = () => {
       setProduct(docSnap.data());
       setIsLoading(false);
     } else {
-      console.log("No such document!");
+      // console.log("No such document!");
       setIsLoading(false);
     }
   }

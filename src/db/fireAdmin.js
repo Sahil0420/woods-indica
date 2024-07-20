@@ -3,7 +3,7 @@ import admin from 'firebase-admin'
 import serviceAccountKey from './serviceKey.json'
 
 
-console.log(serviceAccountKey)
+// console.log(serviceAccountKey)
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccountKey),
@@ -14,7 +14,7 @@ const setAdminClaims = async (email) => {
   try {
     const user = await admin.auth().getUserByEmail(email);
     await admin.auth().setCustomUserClaims(user.uid, { admin: true });
-    console.log(`Custom claims set for user: ${email}`);
+    // console.log(`Custom claims set for user: ${email}`);
   } catch (error) {
     console.error("Error setting custom claims:", error);
   }
@@ -23,5 +23,5 @@ const setAdminClaims = async (email) => {
 // Example usage
 const adminEmail = "serverwoods1@gmail.com";
 setAdminClaims(adminEmail)
-  .then(() => console.log("Admin claims set successfully"))
+  // .then(() => console.log("Admin claims set successfully"))
   .catch(console.error);

@@ -16,7 +16,7 @@ const useFetchDocument = (collectionName, documentId) => {
 			};
 			setDocument(obj);
 		} else {
-			console.log("No such document exist!");
+			// console.log("No such document exist!");
 		}
 	};
 	// Fetching single document from firestore on initial component mount

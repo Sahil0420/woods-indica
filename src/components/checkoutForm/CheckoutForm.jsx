@@ -81,7 +81,7 @@ const CheckoutForm = () => {
     script.src = "https://checkout.razorpay.com/v1/checkout.js";
     script.async = true;
     script.onload = () => {
-      console.log("Razorpay script loaded");
+      // console.log("Razorpay script loaded");
     };
     script.onerror = () => {
       toast.error("Failed to load Razorpay script");

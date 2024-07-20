@@ -33,7 +33,7 @@ const ChangeOrderStatus = ({ order, orderId }) => {
 			navigate("/admin/orders");
 		} catch (error) {
 			toast.error(error.message);
-			console.log(error);
+			// console.log(error);
 			setIsloading(false);
 		}
 	};
