@@ -159,7 +159,7 @@ const Navbar = () => {
                 <div className="indicator">
                   <AiOutlineShoppingCart
                     size={30}
-                    color={theme === "light" ? "black" : "white"}
+                    color={'white'}
                   />
                   <span className="badge badge-secondary indicator-item">
                     {totalQuantity}
