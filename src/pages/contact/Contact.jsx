@@ -100,7 +100,7 @@ const Contact = () => {
                         Name :
                      </label>
                      <input
-                        className="input input-bordered max-w-lg text-neutral w-full border-2"
+                        className="input input-bordered max-w-lg text-gray-600 w-full border-2"
                         type="text"
                         placeholder="Full Name"
                         required
@@ -112,7 +112,7 @@ const Contact = () => {
                         Email :
                      </label>
                      <input
-                        className="input input-bordered max-w-lg w-full border-2"
+                        className="input input-bordered text-gray-600 max-w-lg w-full border-2"
                         type="email"
                         placeholder="Active Email"
                         required
@@ -124,7 +124,7 @@ const Contact = () => {
                         Subject :
                      </label>
                      <input
-                        className="input input-bordered max-w-lg w-full border-2"
+                        className="input input-bordered text-gray-600 max-w-lg w-full border-2"
                         type="text"
                         placeholder="Subject"
                         required
@@ -136,7 +136,7 @@ const Contact = () => {
                         Message :
                      </label>
                      <textarea
-                        className="textarea textarea-bordered max-w-[100%] w-full"
+                        className="textarea text-lg textarea-bordered text-gray-600 max-w-[100%] w-full"
                         rows={5}
                         required
                         name="message"

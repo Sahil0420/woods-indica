@@ -100,19 +100,11 @@ const Navbar = () => {
         <div className="navbar w-full md:w-9/12 mx-auto flex items-center justify-between">
           <section className="flex items-center">
             <Link to="/" className="flex items-center">
-              {theme === "light" ? (
-                <img
-                  src={logoLight}
-                  alt="WoodsIndica Logo"
-                  className=" h-20 w-auto object-contain mr-2" // Adjusted height and added object-contain
-                />
-              ) : (
-                <img
-                  src={logoDark}
-                  alt="WoodsIndica Logo"
-                  className=" h-20 w-auto object-contain mr-2" // Adjusted height and added object-contain
-                />
-              )}
+              <img
+                src={logoDark}
+                alt="WoodsIndica Logo"
+                className=" h-20 w-auto object-contain mr-2" // Adjusted height and added object-contain
+              />
               <h1 className="logo text-primary-content text-lg md:text-2xl">
                 WoodsIndica
               </h1>
