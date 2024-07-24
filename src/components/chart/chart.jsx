@@ -48,7 +48,7 @@ const chart = () => {
 		datasets: [
 			{
 				label: "Order Count",
-				data: [placed, shipped, processing, delivered],
+				data: [placed, processing , shipped, delivered],
 				backgroundColor: "#191a3ed6",
 			},
 		],
